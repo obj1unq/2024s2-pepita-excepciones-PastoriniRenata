@@ -8,6 +8,8 @@ object pepita {
 	method volar(distancia) {
 		energia = energia - 10 - distancia
 	}
+
+	
 		
 	method energia() {
 		return energia
