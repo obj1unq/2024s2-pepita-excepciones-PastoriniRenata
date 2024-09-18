@@ -118,8 +118,5 @@ object milena {
 		aves.add(ave)
 	}
 
-
-
-
 }
 
