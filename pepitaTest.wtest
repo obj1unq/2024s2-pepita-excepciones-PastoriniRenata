@@ -1,0 +1,53 @@
+import pepita.*
+
+
+describe "Probando a Milena" {
+  test "Test de Milena pueden volar 4kms" {
+
+    assert.equals(100,pepita.energia())
+    assert.equals(30,pepon.energia())
+
+    milena.movilizar(4)
+    /*
+    pepita  --> energia(energia - 10 - distancia)   : 100-10-4  = 86
+    pepon   --> energia(energia - 20 - 2*distancia) : 30-20-2*4 = 2
+    */
+  
+    assert.equals(86,pepita.energia())
+    assert.equals(2,pepon.energia())
+
+
+
+  }
+  test "Test de Milena NO pueden volar 6kms" {
+
+    assert.equals(100,pepita.energia())
+    assert.equals(30,pepon.energia())
+
+    //milena.movilizar(6)
+    assert.throwsException({milena.movilizar(6)})
+
+
+    assert.equals(100,pepita.energia())
+    assert.equals(30,pepon.energia())
+
+
+
+  }  
+  test "Test de Milena NO pueden volar 100kms" {
+
+    assert.equals(100,pepita.energia())
+    assert.equals(30,pepon.energia())
+
+    //milena.movilizar(100)
+    assert.throwsException({milena.movilizar(100)})
+
+    assert.equals(100,pepita.energia())
+    assert.equals(30,pepon.energia())
+
+
+  }
+
+
+
+}
