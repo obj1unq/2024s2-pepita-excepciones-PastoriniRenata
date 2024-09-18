@@ -19,13 +19,13 @@ describe "Probando a Milena" {
 
 
   }
-  test "Test de Milena NO pueden volar 6kms" {
+  test "Test de Milena NO puede moverse xq pepon puede volar 6kms" {
 
     assert.equals(100,pepita.energia())
     assert.equals(30,pepon.energia())
 
     //milena.movilizar(6)
-    assert.throwsException({milena.movilizar(6)})
+    assert.throwsExceptionWithMessage("Milena NO puede movilizarse porque #{pepon} no puede volar",{milena.movilizar(6)})
 
 
     assert.equals(100,pepita.energia())
@@ -34,20 +34,18 @@ describe "Probando a Milena" {
 
 
   }  
-  test "Test de Milena NO pueden volar 100kms" {
+  test "Test de Milena NO  puede moverse xq ni pepita ni pepon puede volar 100kms" {
 
     assert.equals(100,pepita.energia())
     assert.equals(30,pepon.energia())
 
     //milena.movilizar(100)
-    assert.throwsException({milena.movilizar(100)})
+    assert.throwsExceptionWithMessage("Milena NO puede movilizarse porque #{pepita, pepon} no puede volar",{milena.movilizar(100)})
 
     assert.equals(100,pepita.energia())
     assert.equals(30,pepon.energia())
 
 
   }
-
-
 
 }
