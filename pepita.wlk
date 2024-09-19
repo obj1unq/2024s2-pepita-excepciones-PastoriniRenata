@@ -6,10 +6,12 @@ object pepita {
 	}
 	
 	method volar(distancia) {
-		if (self.puedeVolar(distancia)){
-			energia = energia - 10 - distancia
-		}
-		else{
+		self.validarVolar(distancia)
+		energia = self.energiaResultante(distancia)
+	}
+
+	method validarVolar(distancia){
+		if (not self.puedeVolar(distancia)){
 			self.error( "No tiene energía suficiente para volar")
 		}
 	}
@@ -19,7 +21,11 @@ object pepita {
 	}
 
 	method puedeVolar(distancia){
-		return (energia - 10 - distancia) >= 0
+		return self.energiaResultante(distancia) >= 0
+	}
+
+	method energiaResultante(distancia){
+		return energia - 10 - distancia
 	}
 
 }
@@ -63,18 +69,24 @@ object pepon {
 		energia += energia + comida.energiaQueAporta() / 2
 	}
 		
-
 	method volar(distancia) {
-		if (self.puedeVolar(distancia)){
-			energia = energia - 20 - 2*distancia
+			self.validarVolar(distancia)
+			energia = self.energiaResultante(distancia)
 		}
-		else{
+	
+	method validarVolar(distancia){
+		if (not self.puedeVolar(distancia)){
 			self.error( "No tiene energía suficiente para volar")
 		}
 	}
+	
+
+	method energiaResultante(distancia){
+		return energia - 20 - 2*distancia
+	}
 
 	method puedeVolar(distancia){
-		return (energia - 20 - 2*distancia) >= 0
+		return self.energiaResultante(distancia) >= 0
 	}
 }
 
@@ -94,12 +106,17 @@ object roque {
 }
 
 
+/*
+primera version
 object milena {
 	const property aves = #{pepita, pepon}
 
 	method movilizar(distancia) {
 		if (self.puedeMovilizarse(distancia)){
-			aves.map({ave => ave.volar(distancia)})
+			//CUANDO ES UNA ORDEN (UNA ACCION) VA UN FOREACH!!
+			//COMO LO HABIA HECHO aves.map({ave => ave.volar(distancia)})
+			aves.forEach({ave => ave.volar(distancia)})
+
 		}else{
 
 			self.error("Milena NO puede movilizarse porque " + self.avesQueNoPuedenVolar(distancia) + " no puede volar")
@@ -107,11 +124,39 @@ object milena {
 		
 	}
 	method avesQueNoPuedenVolar(distancia){
-		return aves.filter{ave=> ! ave.puedeVolar(distancia)}
+		return aves.filter{ave => ! ave.puedeVolar(distancia)}
 	}
 
 	method puedeMovilizarse(distancia){
 		return aves.all({ave => ave.puedeVolar(distancia)})
+	}
+
+
+}
+*/
+
+
+
+
+object milena{
+
+	const aves = #{}
+	method movilizar(distancia){
+		self.validarMovilizar(distancia)
+		//CUANDO ES UNA ORDEN (UNA ACCION) VA UN FOREACH!!
+		aves.forEach({ave => ave.volar(distancia)})
+
+	}
+	
+	method validarMovilizar(distancia){
+		if( not aves.all({ave => ave.puedeVolar(distancia)})){
+			self.error("Milena NO puede movilizarse porque " + self.avesQueNoPuedenVolar(distancia) + " no puede volar")
+
+		}
+	}
+
+	method avesQueNoPuedenVolar(distancia){
+		return aves.filter{ave => ! ave.puedeVolar(distancia)}
 	}
 
 	method agregarAve(ave){

@@ -4,6 +4,9 @@ import pepita.*
 describe "Probando a Milena" {
   test "Test de Milena pueden volar 4kms" {
 
+    milena.agregarAve(pepita)
+    milena.agregarAve(pepon)
+
     assert.equals(100,pepita.energia())
     assert.equals(30,pepon.energia())
 
@@ -19,7 +22,10 @@ describe "Probando a Milena" {
 
 
   }
-  test "Test de Milena NO puede moverse xq pepon puede volar 6kms" {
+  test "Test de Milena NO puede moverse xq pepon no puede volar 6kms" {
+
+    milena.agregarAve(pepita)
+    milena.agregarAve(pepon)
 
     assert.equals(100,pepita.energia())
     assert.equals(30,pepon.energia())
@@ -34,7 +40,10 @@ describe "Probando a Milena" {
 
 
   }  
-  test "Test de Milena NO  puede moverse xq ni pepita ni pepon puede volar 100kms" {
+  test "Test de Milena NO  puede moverse xq ni pepita ni pepon pueden volar 100kms" {
+
+    milena.agregarAve(pepita)
+    milena.agregarAve(pepon)
 
     assert.equals(100,pepita.energia())
     assert.equals(30,pepon.energia())
